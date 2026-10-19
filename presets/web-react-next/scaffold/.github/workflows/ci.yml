@@ -1,0 +1,52 @@
+# /setup-harness가 {{...}} 자리를 프로젝트 값으로 채운다.
+# 모든 잡을 고정된 Docker 이미지에서 돌려 로컬(.nvmrc)과 버전을 맞춘다.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [{{BASE_BRANCH}}]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    container: node:{{NODE_VERSION}}
+    steps:
+      - uses: actions/checkout@v4
+      - run: corepack enable
+      - run: {{INSTALL_CMD}}
+      - run: {{TYPECHECK_CMD}}
+      - run: {{LINT_CMD}}
+      - run: {{TEST_CMD}}
+
+  storybook:
+    runs-on: ubuntu-latest
+    container: node:{{NODE_VERSION}}
+    steps:
+      - uses: actions/checkout@v4
+      - run: corepack enable
+      - run: {{INSTALL_CMD}}
+      - run: {{PM}} build-storybook --quiet
+
+  e2e:
+    needs: check
+    runs-on: ubuntu-latest
+    # @playwright/test 버전과 같은 태그로 고정한다. 어긋나면 브라우저 실행 파일을 못 찾는다.
+    container: mcr.microsoft.com/playwright:v{{PLAYWRIGHT_VERSION}}-noble
+    env:
+      {{MOCK_SWITCH}}: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - run: corepack enable
+      - run: {{INSTALL_CMD}}
+      - run: npx playwright test
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7

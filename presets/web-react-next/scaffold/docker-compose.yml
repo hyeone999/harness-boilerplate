@@ -1,0 +1,15 @@
+# 로컬 개발용 의존 서비스만 띄운다. 앱은 로컬에서 실행한다 (macOS bind mount는 hot reload가 느리다).
+# 백엔드가 붙기 전에는 API를 MSW로 모킹하므로, 여기에는 프론트가 직접 붙는 것만 둔다.
+# 필요 없는 서비스는 지운다. 하나도 필요 없으면 이 파일을 만들지 않는다.
+services:
+  # 예: 실제 백엔드 이미지가 나오면 MSW 대신 붙여볼 때
+  # api:
+  #   image: <백엔드 이미지>
+  #   ports: ["8080:8080"]
+  #   env_file: .env.local
+
+  # 예: 이미지 업로드 등 S3 호환 스토리지가 필요할 때
+  # storage:
+  #   image: minio/minio:latest
+  #   command: server /data --console-address ":9001"
+  #   ports: ["9000:9000", "9001:9001"]

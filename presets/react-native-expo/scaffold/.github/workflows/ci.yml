@@ -1,0 +1,25 @@
+# /setup-harness가 {{...}} 자리를 프로젝트 값으로 채운다.
+# Docker로는 iOS 시뮬레이터를 띄울 수 없어 CI는 JS 검증(타입·린트·Jest)까지만 맡는다.
+# Maestro E2E는 로컬 또는 macOS 러너·Maestro Cloud에서 돌린다.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [{{BASE_BRANCH}}]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    container: node:{{NODE_VERSION}}
+    steps:
+      - uses: actions/checkout@v4
+      - run: corepack enable
+      - run: {{INSTALL_CMD}}
+      - run: {{TYPECHECK_CMD}}
+      - run: {{LINT_CMD}}
+      - run: {{TEST_CMD}}
