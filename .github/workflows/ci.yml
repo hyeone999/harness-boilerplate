@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: check (node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run typecheck
+      - run: npm run lint
+      # hook 테스트가 jq를 쓴다 (ubuntu-latest에 기본 설치)
+      - run: npm test
+      - run: npm run build
+      # 스킬의 {설정:...} 참조·frontmatter·hook 배선·프리셋 원본을 검사한다
+      - run: npm run lint:harness
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: shellcheck .claude/hooks/*.sh
+
+  pack:
+    # npm에 올라갈 파일 목록에 하네스 원본이 빠지지 않았는지 본다
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm pack --dry-run --json > pack.json
+      - run: |
+          for f in dist/cli.js .claude/settings.json .claude/hooks/limit-large-read.sh templates/CLAUDE.harness.md presets/web-react-next/preset.md; do
+            jq -e --arg f "$f" '.[0].files | map(.path) | index($f)' pack.json > /dev/null \
+              || { echo "패키지에 $f가 없다"; exit 1; }
+          done
