@@ -4,7 +4,7 @@ description: 하네스를 이 프로젝트에 맞게 설정한다. 스택·아�
 
 # /setup-harness
 
-하네스 파일(`.claude/`)은 이미 프로젝트에 복사돼 있고, 보일러플레이트 원본의 `presets/`·`templates/` 경로를 알고 있어야 한다. 원본 경로를 모르면 사용자에게 묻는다.
+하네스 파일(`.claude/`)은 `harness init`으로 이미 프로젝트에 복사돼 있고, 보일러플레이트 원본의 `presets/`·`templates/` 경로를 알고 있어야 한다. 원본 경로는 `harness init`이 마지막에 출력한다. 모르면 사용자에게 묻는다.
 
 **감지한 값은 전부 제안일 뿐이다.** 하나라도 확정하기 전에 사용자에게 보여주고 승인받는다 (의사결정 규칙).
 
@@ -81,7 +81,7 @@ find . -maxdepth 3 -type d \( -name node_modules -o -name .git -o -name ios -o -
 
 ## 5. 확인
 
-- `jq . .claude/settings.json`으로 JSON이 깨지지 않았는지 본다
+- `harness doctor`를 실행한다 (`harness`가 PATH에 없으면 `node <보일러플레이트 경로>/dist/cli.js doctor`). 채우지 않은 `{{...}}`, 설정에 없는 `{설정:...}` 참조, 깨진 frontmatter·settings.json, hook 실행 권한을 잡는다. 오류가 0이 될 때까지 고친다
 - hook이 동작하는지 300줄 넘는 파일 하나를 범위 없이 Read해 막히는지 확인한다 (hook은 세션 재시작 후 적용될 수 있다)
 - 타입체크·린트·테스트 명령을 한 번씩 돌려 기준선을 기록한다
 
