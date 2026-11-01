@@ -28,7 +28,8 @@
 | 테스트 | `{{TEST_CMD}}` |
 | 소스 확장자 | `{{SOURCE_EXT_REGEX}}` |
 | 개발 서버 포트 | {{DEV_PORT}} |
-| 앱 ID / 스킴 | {{APP_ID}} / {{APP_SCHEME}} |
+| 앱 ID | {{APP_ID}} |
+| 앱 스킴 | {{APP_SCHEME}} |
 
 ### 아키텍처
 
@@ -42,7 +43,7 @@
 | 전역 상태 | {{STATE_DIR}} |
 | 공용 컴포넌트 | {{COMPONENTS_DIR}} |
 | 아이콘 | {{ICONS_DIR}} |
-| mocks (MSW) | {{MOCKS_DIR}} |
+| mocks 위치 | {{MOCKS_DIR}} |
 | 스타일·테마 | {{THEME_DIR}} |
 
 ### 외부 소스
@@ -52,7 +53,7 @@
 | API 스키마 | {{API_SCHEMA}} |
 | 모킹 스위치 | `{{MOCK_SWITCH}}` |
 | 디자인 소스 | {{DESIGN_SOURCE}} |
-| 테스트 | {{TEST_STACK}} |
+| 테스트 도구 | {{TEST_STACK}} |
 
 ### 문서 동기화
 
