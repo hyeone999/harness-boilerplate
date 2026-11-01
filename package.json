@@ -1,0 +1,46 @@
+{
+  "name": "harness-boilerplate",
+  "version": "0.1.0",
+  "description": "Claude Code 작업 하네스를 프로젝트에 설치하고 설정 정합성을 검사하는 CLI",
+  "license": "MIT",
+  "author": "hyeone999",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyeone999/harness-boilerplate.git"
+  },
+  "type": "module",
+  "bin": {
+    "harness": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    ".claude",
+    "presets",
+    "templates"
+  ],
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "lint:harness": "node dist/cli.js lint .",
+    "check": "npm run typecheck && npm run lint && npm test && npm run build && npm run lint:harness",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.0",
+    "@types/node": "^24.19.2",
+    "eslint": "^10.14.0",
+    "prettier": "^3.9.10",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "vitest": "^5.0.5"
+  },
+  "overrides": {
+    "minimatch": "^11.0.1"
+  }
+}
