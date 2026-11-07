@@ -22,9 +22,6 @@ ls yarn.lock pnpm-lock.yaml package-lock.json bun.lockb 2>/dev/null
 # Node 버전
 cat .nvmrc .node-version 2>/dev/null; jq -r '.engines.node // empty' package.json
 
-# Android (package.json이 없을 때)
-ls settings.gradle* build.gradle* app/build.gradle* 2>/dev/null
-
 # 브랜치
 git remote show origin 2>/dev/null | grep "HEAD branch"; git branch -r | head -20
 
