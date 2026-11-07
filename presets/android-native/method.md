@@ -75,11 +75,14 @@ adb shell dumpsys car_service --services CarUxRestrictionsManagerService | grep 
 
 ### 마이크
 
-기본 설정에서는 Mac의 마이크 입력이 전달되지 않는다. 실행 옵션을 켜고, 값이 계속 0이면 macOS 개인정보 보호의 마이크 권한을 확인한다.
+기본 설정에서는 Mac의 마이크 입력이 전달되지 않는다. 실행 옵션만으로는 부족해서, 부팅 후 콘솔 명령까지 실행한다.
 
 ```bash
 ~/Library/Android/sdk/emulator/emulator -avd <AVD 이름> -allow-host-audio
+adb emu avd hostmicon
 ```
+
+그래도 입력이 0에 가까우면 macOS 개인정보 보호의 마이크 권한을 확인한다.
 
 ## 로그
 
