@@ -1,11 +1,5 @@
 # Changelog
 
-## Unreleased
-
-### 추가
-
-- `android-native` 프리셋: Gradle 프로젝트 감지, Jetpack Compose 스택, adb 검증 방법, CI
-
 ## 0.1.0
 
 ### 추가
