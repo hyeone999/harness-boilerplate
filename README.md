@@ -163,6 +163,7 @@ CLAUDE.md:31  error    {{DEV_PORT}}가 채워지지 않았다. /setup-harness를
 templates/CLAUDE.harness.md   CLAUDE.md에 들어갈 "하네스 설정" 절 (모든 {설정:...}의 기준)
 presets/                      스택별 규칙·UI 검증 방법·scaffold
 ├── shared/                   TypeScript·React Query 규칙, MSW scaffold
+├── android-native/           Compose·AAOS 규칙, adb 검증, CI(Gradle)
 ├── react-native-expo/        RN 규칙, Maestro 검증, CI(JS 검증)
 └── web-react-next/           React·Next 규칙, Storybook·Playwright 검증, CI(Docker), compose
 src/                          harness CLI (TypeScript, 런타임 의존성 없음)
