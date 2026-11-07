@@ -5,15 +5,6 @@
 ### 추가
 
 - `android-native` 프리셋: Gradle 프로젝트 감지, Jetpack Compose 스택, adb 검증 방법, CI
-- Pleos Connect 에뮬레이터 검증 절차: 스크린샷, 드라이버 사용자, Virtual Console, 마이크
-
-### 수정
-
-- Pleos 에뮬레이터 마이크 절차에 `adb emu avd hostmicon`을 추가했다. `-allow-host-audio`만으로는 Mac의 마이크 입력이 들어오지 않았다
-
-### 적용
-
-이미 프리셋을 적용한 프로젝트는 `presets/android-native/method.md`의 내용을 `.claude/skills/ui-verify/method.md`에 반영한다.
 
 ## 0.1.0
 
